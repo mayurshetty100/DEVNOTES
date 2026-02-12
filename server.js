@@ -12,9 +12,11 @@ app.get('/',(req,res)=>{
     res.send("devnotes api running...");
 });
 
-app.post('/test',(req,res)=>{
-   res.json({recievedData:req.body});
-});
+//import the test routes
+const testRoutes=require('./routes/testRoutes');
+
+// use all the test routes with the prefix /api
+app.use('/api',testRoutes);
 
 app.listen(PORT,()=>{
     console.log('server runnning on port 3000');
