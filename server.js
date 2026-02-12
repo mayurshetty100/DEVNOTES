@@ -6,6 +6,11 @@ const app=express();
 require('dotenv').config();
 const PORT=process.env.PORT || 3000;
 // middleware to enable json parsing 
+
+// import DB connection
+const connectDB = require("./config/db");
+//connect db 
+connectDB();
 app.use(express.json());
 
 app.get('/',(req,res)=>{
