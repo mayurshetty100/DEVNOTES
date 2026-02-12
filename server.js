@@ -13,11 +13,12 @@ app.get('/',(req,res)=>{
 });
 
 //import the test routes
-const testRoutes=require('./routes/testRoutes');
+const testRoutes=require('./routes/testRoutes.js');// we can add or remove the .js extension as node will automatically resolve it.
+//but for other files like .json we need to add the extension as node will not resolve it automatically.    
 
 // use all the test routes with the prefix /api
-app.use('/api',testRoutes);
+app.use('/api',testRoutes);// we can even leave the /api as empty string if we want to use the test route directly without any prefix. but using a prefix is a good practice to organize the routes and avoid conflicts with other routes.
 
 app.listen(PORT,()=>{
-    console.log('server runnning on port 3000');
+    console.log(`server running on port ${PORT}`);
 });
