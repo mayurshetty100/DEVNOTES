@@ -18,7 +18,7 @@ const registerUser= async (req,res)=>{
         }
         //hash the password before saving to the database
         const salt=await bcrypt.genSalt(10);
-        const hashedPassword=await bcrypt.hash(passoword,salt);
+        const hashedPassword=await bcrypt.hash(password,salt);
         //create new user
         const user=await User.create({
             name,email,password:hashedPassword
