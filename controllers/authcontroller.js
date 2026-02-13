@@ -1,5 +1,5 @@
-const User = require('../models/user');
-const user=require('../models/user');
+const User = require('../models/User');
+
 
 // registering new user
 

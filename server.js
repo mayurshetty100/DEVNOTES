@@ -25,7 +25,7 @@ const testRoutes=require('./routes/testRoutes.js');// we can add or remove the .
 app.use('/api',testRoutes);// we can even leave the /api as empty string if we want to use the test route directly without any prefix. but using a prefix is a good practice to organize the routes and avoid conflicts with other routes.
 
 //routes for auth
-const authRoutes=require('./routes/authRoute');
+const authRoutes=require('./routes/authRoutes');
 app.use('/api/auth',authRoutes);
 
 app.listen(PORT,()=>{
