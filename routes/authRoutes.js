@@ -5,10 +5,12 @@ const express=require('express');
 const router=express.Router();
 
 //import controller
-const {registerUser}=require('../controllers/authcontroller');
+const {registerUser,loginUser}=require('../controllers/authcontroller');
 
 // POST /api/auth/register
 router.post('/register',registerUser);
 
+// POST /api/auth/login
+router.post('/login',loginUser);
 //export the router
 module.exports=router;
