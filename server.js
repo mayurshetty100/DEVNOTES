@@ -28,6 +28,11 @@ app.use('/api',testRoutes);// we can even leave the /api as empty string if we w
 const authRoutes=require('./routes/authRoutes');
 app.use('/api/auth',authRoutes);
 
+//access the notes routes
+const noteRoutes=require('./routes/noteRoutes.js');
+app.use('/api/notes',noteRoutes);
+
+// listen to the backend server
 app.listen(PORT,()=>{
     console.log(`server running on port ${PORT}`);
 });
