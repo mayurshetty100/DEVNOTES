@@ -22,3 +22,9 @@ const noteSchema=new mongoose.Schema({
     timestamps:true
 }
 );
+
+//create the model
+const Note=mongoose.model('Note',noteSchema);
+
+//export the model
+module.exports=Note;
