@@ -16,5 +16,16 @@ router.get('/',protect,(req,res)=>{
     });
 });
 
+// import createNote controller
+const {createNote}=require('../controllers/notecontroller');
+
+// GET /api/notes protected route to create a new note
+router.get("/",protect,(req,res)=>{
+    res.json({
+        message:"You accessed the protected notes route",
+        user:req.user
+    });
+});
+
 //export router
 module.exports=router;
