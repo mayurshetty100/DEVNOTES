@@ -25,7 +25,22 @@ const createNote=async(req,res)=>{
     }
 };
 
+//to read all the notes created by a logged in user (his notes)
+const getMyNotes=async(req,res)=>{
+    try{
+        const notes=await Note.find({user:req.user.id});
+        res.json(notes);
+}catch(err){
+    res.status(500).json({
+        message:"failed to fetch notes",
+        error:err.message
+    });
+}
+};
+
+
 //export the controller
 module.exports={
-    createNote
+    createNote,
+    getMyNotes
 };
