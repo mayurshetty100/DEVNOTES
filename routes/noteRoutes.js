@@ -20,5 +20,8 @@ router.get("/",protect,(req,res)=>{
     });
 });
 
+// GET /api/notes/my
+router.get("/my",protect,getMyNotes);
+
 //export router
 module.exports=router;
