@@ -8,7 +8,7 @@ const router=express.Router();
 const protect=require('../middlewares/authMiddleware');
 
 // import createNote controller
-const {createNote}=require('../controllers/notecontroller');
+const {createNote,getMyNotes}=require('../controllers/notecontroller');
 
 //POST api/notes protected route to create a new note
 router.post("/",protect,createNote);
