@@ -83,5 +83,6 @@ const updateNote=async(req,res)=>{
 //export the controller
 module.exports={
     createNote,
-    getMyNotes
+    getMyNotes,
+    updateNote
 };

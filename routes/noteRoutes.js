@@ -8,7 +8,7 @@ const router=express.Router();
 const protect=require('../middlewares/authMiddleware');
 
 // import createNote controller
-const {createNote,getMyNotes}=require('../controllers/notecontroller');
+const {createNote,getMyNotes,updateNote}=require('../controllers/notecontroller');
 
 //POST api/notes protected route to create a new note
 router.post("/",protect,createNote);
@@ -22,6 +22,9 @@ router.get("/",protect,(req,res)=>{
 
 // GET /api/notes/my
 router.get("/my",protect,getMyNotes);
+
+//PUT /api/notes/:id
+router.put("/:id",protect,updateNote);
 
 //export router
 module.exports=router;
