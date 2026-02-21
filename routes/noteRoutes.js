@@ -8,7 +8,7 @@ const router=express.Router();
 const protect=require('../middlewares/authMiddleware');
 
 // import createNote controller
-const {createNote,getMyNotes,updateNote}=require('../controllers/notecontroller');
+const {createNote,getMyNotes,updateNote,deleteNote}=require('../controllers/notecontroller');
 
 //POST api/notes protected route to create a new note
 router.post("/",protect,createNote);
@@ -25,6 +25,9 @@ router.get("/my",protect,getMyNotes);
 
 //PUT /api/notes/:id
 router.put("/:id",protect,updateNote);
+
+//DELETE /api/notes/:id
+router.delete("/:id",protect,deleteNote);
 
 //export router
 module.exports=router;
