@@ -80,6 +80,40 @@ const updateNote=async(req,res)=>{
     }
 };
 
+//delete notes 
+const deleteNote=async (req,res)=>{
+    try{
+        const note = await Note.findById(req.params.id);
+
+        if(!note){
+            return res.status(404).json({
+                message:"Note not found"
+            });
+        }
+        
+        //check ownership 
+        if(note.user.toString()!==req.user.id){
+            return res.status(403).json({
+                message:"Not authorized"
+            });
+        }
+
+        //delete the note
+        await note.deleteOne();
+
+        res.json({
+            message:"Note deleted successfully"
+        }
+        );
+    }
+         catch(err){
+            res.status(500).json({
+                message:"Failed to delete the note",
+                error:error.message
+            });
+         }
+};
+
 //export the controller
 module.exports={
     createNote,
