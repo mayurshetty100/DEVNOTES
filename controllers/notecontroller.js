@@ -118,5 +118,6 @@ const deleteNote=async (req,res)=>{
 module.exports={
     createNote,
     getMyNotes,
-    updateNote
+    updateNote,
+    deleteNote
 };
