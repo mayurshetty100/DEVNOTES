@@ -7,11 +7,15 @@ const router=express.Router();
 //import auth middleware
 const protect=require('../middlewares/authMiddleware');
 
+//import or require the notecontroller middleware
+const validateNote=require("../middlewares/validateNote");
+
+
 // import createNote controller
 const {createNote,getMyNotes,updateNote,deleteNote}=require('../controllers/notecontroller');
 
 //POST api/notes protected route to create a new note
-router.post("/",protect,createNote);
+router.post("/",protect,validateNote,createNote);
 // GET /api/notes protected route to create a new note
 router.get("/",protect,(req,res)=>{
     res.json({
