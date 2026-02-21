@@ -32,6 +32,11 @@ app.use('/api/auth',authRoutes);
 const noteRoutes=require('./routes/noteRoutes.js');
 app.use('/api/notes',noteRoutes);
 
+//access the errorHandling middleware
+const errorHandler=require('./middlewares/errorMiddleware');
+app.use(errorHandler);
+
+
 // listen to the backend server
 app.listen(PORT,()=>{
     console.log(`server running on port ${PORT}`);
