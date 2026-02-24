@@ -131,38 +131,60 @@ const updateNote=asyncHandler(async(req,res)=>{
 });
 
 //delete notes 
-const deleteNote=async (req,res)=>{
-    try{
-        const note = await Note.findById(req.params.id);
 
-        if(!note){
-            return res.status(404).json({
-                message:"Note not found"
-            });
-        }
+// const deleteNote=async (req,res)=>{
+//     try{
+//         const note = await Note.findById(req.params.id);
+
+//         if(!note){
+//             return res.status(404).json({
+//                 message:"Note not found"
+//             });
+//         }
         
-        //check ownership 
-        if(note.user.toString()!==req.user.id){
-            return res.status(403).json({
-                message:"Not authorized"
-            });
-        }
+//         //check ownership 
+//         if(note.user.toString()!==req.user.id){
+//             return res.status(403).json({
+//                 message:"Not authorized"
+//             });
+//         }
 
-        //delete the note
-        await note.deleteOne();
+//         //delete the note
+//         await note.deleteOne();
 
-        res.json({
-            message:"Note deleted successfully"
-        }
-        );
+//         res.json({
+//             message:"Note deleted successfully"
+//         }
+//         );
+//     }
+//          catch(err){
+//             res.status(500).json({
+//                 message:"Failed to delete the note",
+//                 error:error.message
+//             });
+//          }
+// };
+// after adding the asyncHandler middleware to handle errors in async functions, we can eliminate the try-catch block and directly write the code to delete the note. any error that occurs in the async function will be automatically caught and passed to the error handling middleware.
+const deleteNote=asyncHandler(async(req,res)=>{
+    const note=await Note.findById(req.params.id);
+    //check if note exists
+    if(!note){
+        return res.status(404).json({
+            message:"note not found"
+        });
     }
-         catch(err){
-            res.status(500).json({
-                message:"Failed to delete the note",
-                error:error.message
-            });
-         }
-};
+    //check user ownership
+    if(note.user.toString() !== req.user.id){
+        res.status(403).json({
+            message:"unauthorized to delete this note"
+        });
+    }
+
+    await note.deleteOne();
+    res.json({
+        message:"note deleted successfully"
+    })
+});
 
 //export the controller
 module.exports={
