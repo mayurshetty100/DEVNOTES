@@ -1,30 +1,46 @@
 // import the note model
 const Note= require('../models/Note');
 
+//import the asyncHandler middleware to handle errors in async functions
+const asyncHandler=require('../middlewares/asyncHandler');
+
+
 //create new note
-const createNote=async(req,res)=>{
-    try{
-        const {title,content}=req.body;
+//below is the code before adding the asyncHandler middleware to handle errors in async functions. we will wrap the createNote function with asyncHandler to eliminate the need for try-catch blocks in async functions (controllers).
+// const createNote=async(req,res)=>{
+//     try{
+//         const {title,content}=req.body;
 
-        //create note for logged in user
-        const note=await Note.create({
-            user:req.user.id,
-            title,
-            content
-        });
+//         //create note for logged in user
+//         const note=await Note.create({
+//             user:req.user.id,
+//             title,
+//             content
+//         });
 
-        res.status(201).json({
-            message:"Note created successfully",
-            note
-        })
-    } catch(err){
-        res.status(500).json({
-            message:"Failed to create note",
-            error:err.message
-        });
-    }
-};
-
+//         res.status(201).json({
+//             message:"Note created successfully",
+//             note
+//         })
+//     } catch(err){
+//         res.status(500).json({
+//             message:"Failed to create note",
+//             error:err.message
+//         });
+//     }
+// };
+const createNote=asyncHandler(async(req,res)=>{
+    const {title,content}=req.body;
+    const note=await Note.create({
+        user:req.user.id,
+        title,
+        content
+    });
+    res.status(201).json({
+        message:"Note created successfully",
+        note
+    });
+});
 //to read all the notes created by a logged in user (his notes)
 const getMyNotes=async(req,res)=>{
     try{
