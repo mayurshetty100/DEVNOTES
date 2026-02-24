@@ -41,18 +41,26 @@ const createNote=asyncHandler(async(req,res)=>{
         note
     });
 });
+
+
 //to read all the notes created by a logged in user (his notes)
-const getMyNotes=async(req,res)=>{
-    try{
-        const notes=await Note.find({user:req.user.id});
-        res.json(notes);
-}catch(err){
-    res.status(500).json({
-        message:"failed to fetch notes",
-        error:err.message
-    });
-}
-};
+// const getMyNotes=async(req,res)=>{
+//     try{
+//         const notes=await Note.find({user:req.user.id});
+//         res.json(notes);
+// }catch(err){
+//     res.status(500).json({
+//         message:"failed to fetch notes",
+//         error:err.message
+//     });
+// }
+// };
+// after adding the asyncHandler middleware to handle errors in async functions, we can eliminate the try-catch block and directly write the code to fetch notes. any error that occurs in the async function will be automatically caught and passed to the error handling middleware.
+const getMyNotes=asyncHandler(async(req,res)=>{
+    const notes=await Note.find({user:req.user.id});
+    res.json(notes);
+});
+
 
 // update note
 
