@@ -64,45 +64,71 @@ const getMyNotes=asyncHandler(async(req,res)=>{
 
 // update note
 
-const updateNote=async(req,res)=>{
-    try{
-        const {title,content}=req.body;
+// const updateNote=async(req,res)=>{
+//     try{
+//         const {title,content}=req.body;
 
-        //find the note to be updated
-        const note=await Note.findById(req.params.id);
+//         //find the note to be updated
+//         const note=await Note.findById(req.params.id);
 
-        if(!note){
-            return res.status(404).json({
-                message:"Note not found"
-            })
-        }
+//         if(!note){
+//             return res.status(404).json({
+//                 message:"Note not found"
+//             })
+//         }
 
-        //check ownership
-        if(note.user.toString()!==req.user.id){
-            return res.status(403).json({
-                message:"unauthorized"
-            });
-        }
+//         //check ownership
+//         if(note.user.toString()!==req.user.id){
+//             return res.status(403).json({
+//                 message:"unauthorized"
+//             });
+//         }
 
-        //update fields
-        note.title=title || note.title;
-        note.content=content || note.content;
+//         //update fields
+//         note.title=title || note.title;
+//         note.content=content || note.content;
 
-        //save the updated note to database
-        await note.save();
+//         //save the updated note to database
+//         await note.save();
 
-        //return response to user
-        res.json({
-            message:"Note updated successfully",
-            note
-        });
-    }catch(err){
-        res.status(500).json({
-            message:"Failed to update the note",
-            error:error.message
+//         //return response to user
+//         res.json({
+//             message:"Note updated successfully",
+//             note
+//         });
+//     }catch(err){
+//         res.status(500).json({
+//             message:"Failed to update the note",
+//             error:error.message
+//         });
+//     }
+// };
+// after adding the asyncHandler middleware to handle errors in async functions, we can eliminate the try-catch block and directly write the code to update the note. any error that occurs in the async function will be automatically caught and passed to the error handling middleware.
+const updateNote=asyncHandler(async(req,res)=>{
+    const {title,content}=req.body;
+    const note=await Note.findById(req.params.id);
+    //if note not found
+    if(!note){
+        return res.status(404).json({
+            message:"note not found"
         });
     }
-};
+
+    if(note.user.toString()!==req.user.id){
+        return res.status(403).json({
+            message:"unauthorized to modify this note"
+        });
+    }
+
+    note.title=title || note.title;
+    note.content=content || note.content;
+
+    await note.save();
+
+    res.status(200).json({
+        message:"note updated successfully"
+    });
+});
 
 //delete notes 
 const deleteNote=async (req,res)=>{
