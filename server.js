@@ -2,6 +2,10 @@ const express=require('express');
 
 const app=express();
 
+//import cors to enable cross-origin resource sharing
+const cors=require('cors');
+
+
 //require the dotenv to access the values from the .env file
 require('dotenv').config();
 const PORT=process.env.PORT || 3000;
@@ -12,6 +16,7 @@ const connectDB = require("./config/db");
 //connect db 
 connectDB();
 app.use(express.json());
+app.use(cors());
 
 app.get('/',(req,res)=>{
     res.send("devnotes api running...");
