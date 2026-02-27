@@ -1,7 +1,10 @@
+import TestPage from './pages/testPage';
+
+
 function App(){
   return(
     <div>
-      <h1>Hello this is mayur shetty✌️</h1>
+      <TestPage/> 
     </div>
   );
 }
