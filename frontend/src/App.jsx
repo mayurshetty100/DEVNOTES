@@ -1,11 +1,16 @@
-import TestPage from './pages/testPage';
+import {Routes,route} from "react-router-dom";
+import Login from "./src/pages/Login.jsx";
+import Register from './src/pages/Register.jsx';
+import Dashboard from './src/pages/Dashboard.jsx';
 
 
 function App(){
   return(
-    <div>
-      <TestPage/> 
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<Dashboard/>} />
+    </Routes>
   );
 }
 
